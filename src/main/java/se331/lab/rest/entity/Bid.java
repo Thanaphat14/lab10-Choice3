@@ -1,13 +1,19 @@
 package se331.lab.rest.entity;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bid {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -16,9 +22,5 @@ public class Bid {
     LocalDateTime datetime;
 
     @ManyToOne
-    @JoinColumn(name = "auction_item_id")
     AuctionItem auctionItem;
-
 }
-
-
