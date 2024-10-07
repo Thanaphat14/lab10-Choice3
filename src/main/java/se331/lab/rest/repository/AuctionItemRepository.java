@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface AuctionItemRepository extends JpaRepository<AuctionItem, Long> {
     List<AuctionItem> findByDescriptionContaining(String description);
+    List<AuctionItem> findByTypeContaining(String type);
     List<AuctionItem> findBySuccessfulBid_AmountLessThan(BigDecimal amount);
 }
 

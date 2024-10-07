@@ -9,6 +9,7 @@ import se331.lab.rest.repository.AuctionItemRepository;
 import se331.lab.rest.util.LabMapper;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +35,21 @@ public class AuctionItemServiceImpl implements AuctionItemService {
 
     @Override
     public List<AuctionItemDTO> searchByDescription(String description) {
-        List<AuctionItem> auctionItems = auctionItemRepository.findByDescriptionContaining(description);
+        return searchByDescriptionOrType(description, null);
+    }
+
+    @Override
+    public List<AuctionItemDTO> searchByDescriptionOrType(String description, String type) {
+        List<AuctionItem> auctionItems = new ArrayList<>();
+
+        if (description != null && !description.isEmpty()) {
+            auctionItems.addAll(auctionItemRepository.findByDescriptionContaining(description));
+        }
+
+        if (type != null && !type.isEmpty()) {
+            auctionItems.addAll(auctionItemRepository.findByTypeContaining(type));
+        }
+
         return labMapper.toAuctionItemDTOs(auctionItems);
     }
 
@@ -51,5 +66,3 @@ public class AuctionItemServiceImpl implements AuctionItemService {
         return labMapper.toAuctionItemDTO(auctionItem);
     }
 }
-
-
